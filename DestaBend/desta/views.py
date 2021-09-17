@@ -29,6 +29,6 @@ def data(request):
         "image": None if bg_image == None else gfs.put(bg_image) ,  #need to handle the default image case
     }
 
-    db.profiles.insert_one(profile)
+    # db.profiles.insert_one(profile)
 
     return HttpResponse("Profile Saved and awaiting approval !")
