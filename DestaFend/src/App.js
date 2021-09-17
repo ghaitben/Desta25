@@ -17,8 +17,7 @@ function App() {
   });
 
   function send(){
-    axios.post('/url/data', values)
-
+    axios.post('http:localhost:3003/url/data', values)
     .then((response) => {
       console.log(response);
     }, (error) => {
@@ -48,7 +47,7 @@ function App() {
     setValues({...values, businessContact: event.target.value})
   }
   const handleImageChange = (event) => {
-    setValues({...values,image: event.target.value})
+    setValues({...values,image: event.target.files[0]})
   }
 
   const handleSubmit = (event) => {
@@ -56,6 +55,7 @@ function App() {
     if(values.businessOwnerName && values.businessName){
       setValid(true);
     }
+    send();
     setSubmitted(true);
   }
 
