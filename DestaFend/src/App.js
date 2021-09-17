@@ -6,6 +6,8 @@ import SearchBar from './components/SearchBar';
 
 
 function App() {
+
+
   const [values,setValues] = useState({
     businessName: "",
     businessOwnerName: "",
@@ -17,7 +19,16 @@ function App() {
   });
 
   function send(){
-    axios.post('http:localhost:3003/url/data', values)
+    var formData = new FormData();
+    Object.keys(values).forEach((key) => {
+      formData.append(key, values[key]);
+    })
+
+    axios.post('http://localhost:3003/url/data', formData, {
+      headers: {
+          "content-Type": 'multipart/form-data'
+      }
+    })
     .then((response) => {
       console.log(response);
     }, (error) => {
@@ -61,7 +72,7 @@ function App() {
 
   return (
     <div class="form-container">
-          <form class="register-form" onSubmit={handleSubmit}>
+          <form class="register-form" onSubmit={handleSubmit} encType="multipart/form-data">
             {submitted && valid ? <div class="success-message">Success! Thank you for registering</div> : null}
             <input
               onChange={handleBusinessNameInputChange}
