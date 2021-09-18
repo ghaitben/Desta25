@@ -1,18 +1,17 @@
 import './Tile.css'
 
-function Tile() {
+function Tile({name, description, image}) {
     return (
         <>
             <div className="container">
                 <div className="backgroundImage">
-                    <img src={require("./img.png").default} alt="img" className="bg" />
+                    <img src={"data:image;base64,"+{image}.image} alt="backgroundPhoto" class="bg" />
                 </div>
                 <div className="businessName">
-                    <span class="name">Business Name</span>
+                    <span class="name">{name}</span>
                 </div>
                 <div className="description">
-                    Hi there this is my business and I will be smqkdssq 
-
+                    {description}
                 </div>
             </div>
         </>
