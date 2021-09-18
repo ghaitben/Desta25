@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import '../index.css';
 import './SearchBar.js'
+import NavBar from './NavBar.js'
 import SearchBar from './SearchBar';
 
 
@@ -90,6 +91,7 @@ function App() {
     }
     setSubmitted(true);
     send();
+    window.location.href = 'http://localhost:3000/';
   }
 
 
@@ -219,6 +221,8 @@ function App() {
     //}
 
   return (
+    <>
+    <NavBar />  
     <div class="form-container">
           <form className="register-form" onSubmit={handleSubmit} encType="multipart/form-data">
             {submitted && valid ? <div className="success-message">Success! Thank you for registering</div> : null}
@@ -346,6 +350,7 @@ function App() {
             </button>
           </form>
     </div>
+    </>
   )
 }
 

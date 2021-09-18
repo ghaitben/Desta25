@@ -49,3 +49,26 @@
     text-overflow: ellipsis;
 
 }
+
+.Visible {
+    display: none;
+    color:white;
+    font-weight: bold;
+    padding:10px;
+    border-radius: 10px;
+    background-color: red;
+    cursor: pointer;
+}
+
+.green {
+    background-color: lightgreen;
+}
+.red {
+    background-color: red;
+}
+
+.visibilityButton {
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: bold;
+}
