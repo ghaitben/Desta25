@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-DestaBend/desta/__pycache__
-DestaBend/DestaBend/__pycache__
-=======
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
@@ -25,4 +21,5 @@ DestaBend/DestaBend/__pycache__
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
->>>>>>> origin/master
+
+
