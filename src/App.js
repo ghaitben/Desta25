@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import axios from "axios";
 import './index.css';
 import './components/SearchBar.js'
@@ -14,6 +14,7 @@ function App() {
     publictContact: "",
     businessContact: "",
     image: './default_img.jpeg',
+    tags: "",
   });
 
   function send(){
@@ -50,14 +51,144 @@ function App() {
   const handleImageChange = (event) => {
     setValues({...values,image: event.target.value})
   }
+  const handleTagsChange = (event) => {
+    setValues({...values,tags: event.target.value})
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if(values.businessOwnerName && values.businessName){
+    if(values.businessOwnerName && values.businessName && values.businessContact){
       setValid(true);
     }
     setSubmitted(true);
+    console.log(industry)
   }
+
+
+    //the tags array should be filled with all the tags that we have
+    const [industry,setindustryFlag] = useState([
+      {
+        name: "food",
+        flag: false
+      },
+      {
+        name: "accomodation",
+        flag: false
+      },
+      {
+        name: "arts",
+        flag: false
+      },
+      {
+        name: "entertainment",
+        flag: false
+      },
+      {
+        name: "recreation",
+        flag: false
+      },
+      {
+        name: "construction",
+        flag: false
+      },
+      {
+        name: "education",
+        flag: false
+      },
+      {
+        name: "healthcare",
+        flag: false
+      },
+      {
+        name: "manufacturing",
+        flag: false
+      },
+      {
+        name: "real estate",
+        flag: false
+      },
+      {
+        name: "retail",
+        flag: false
+      },
+      {
+        name: "wholesale",
+        flag: false
+      },
+      {
+        name: "clothing",
+        flag: false
+      }
+    ]);
+
+    const [neighbourhood,setneighbourhoodFlag] = useState([
+      {
+        name: "downtown",
+        flag: false
+      },
+      {
+        name: "old montreal",
+        flag: false
+      },
+      {
+        name: "plateau and mile end",
+        flag: false
+      },
+      {
+        name: "the village",
+        flag: false
+      },
+      {
+        name: "mont royal and outrement",
+        flag: false
+      },
+      {
+        name: "hochelaga-maisonneuve",
+        flag: false
+      },
+      {
+        name: "little italy and villeray",
+        flag: false
+      },
+      {
+        name: "les quartiers du canal",
+        flag: false
+      },
+      {
+        name: "west island",
+        flag: false
+      },
+      {
+        name: "pole des rapides",
+        flag: false
+      }
+    ]);
+    
+    const [checkedIndustryState, setIndustryCheckedState] = useState(
+      new Array(industry.length).fill(false)
+    );
+
+    const [checkedNeighbourhoodState, setNeighbourhoodCheckedState] = useState(
+      new Array(neighbourhood.length).fill(false)
+    );
+
+    const handleIndustryOnChange = (position) => {
+      const updatedIndustryCheckedState = checkedIndustryState.map((item, index) =>
+        index === position ? !item : item
+      );
+
+      setIndustryCheckedState(updatedIndustryCheckedState);
+      industry[position].flag = !industry[position].flag
+    }
+
+    const handleNeighbourhoodOnChange = (position) => {
+      const updatedNeighbourhoodCheckedState = checkedNeighbourhoodState.map((item, index) =>
+        index === position ? !item : item
+      );
+
+      setNeighbourhoodCheckedState(updatedNeighbourhoodCheckedState);
+      neighbourhood[position].flag = !neighbourhood[position].flag
+    }
 
   return (
     <div class="form-container">
@@ -117,12 +248,64 @@ function App() {
               type="file"
               placeholder="Insert an image"
             />
-
+            <input
+              onChange={handleTagsChange}
+              value={values.tags}
+              class="form-field"
+              type="text"
+              placeholder="Enter some tags separated by commas"
+            />
+            <h3>Select Industry</h3>
+                  <ul className="industry-list">
+                    {industry.map(({ name },index) => {
+                      return (
+                        <li key={index}>
+                          <div className="indsutry-list-item">
+                            <div className="left-section">
+                              <input
+                                type="checkbox"
+                                id={`custom-checkbox-${index}`}
+                                name={name}
+                                value={name}
+                                checked={checkedIndustryState[index]}
+                                onChange={() => handleIndustryOnChange(index)}
+                              />
+                              <label htmlFor={`custom-checkbox-${index}`}>{name}</label>
+                            </div>
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                  <h3>Select neighbourhood</h3>
+                  <ul className="industry-list">
+                    {neighbourhood.map(({ name },index) => {
+                      return (
+                        <li key={index}>
+                          <div className="indsutry-list-item">
+                            <div className="left-section">
+                              <input
+                                type="checkbox"
+                                id={`custom-checkbox-${index}`}
+                                name={name}
+                                value={name}
+                                checked={checkedNeighbourhoodState[index]}
+                                onChange={() => handleNeighbourhoodOnChange(index)}
+                              />
+                              <label htmlFor={`custom-checkbox-${index}`}>{name}</label>
+                            </div>
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
             <button class="form-field" type="submit">
               Register
             </button>
           </form>
-        </div>
+    </div>
   )
 }
+
+
 export default App;
