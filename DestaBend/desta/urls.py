@@ -3,5 +3,5 @@ from . import views
 
 urlpatterns = [
     path('', views.home, name="home"),
-    path('url/data', views.data, name="data")
+    path('url/saveProfile', views.saveProfile, name="data")
 ]

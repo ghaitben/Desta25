@@ -18,7 +18,35 @@ function App() {
   });
 
   function send(){
-    axios.post('/url/data', values)
+    let industry_clone = [...industry];
+    let neighbourhood_clone = [...neighbourhood];
+    
+    for(var i = 0; i < industry_clone.length; i++) {
+      industry_clone[i] = JSON.stringify(industry_clone[i]);
+    }
+    for(var j = 0; j < neighbourhood_clone.length; j++) {
+      neighbourhood_clone[j] = JSON.stringify(neighbourhood_clone[j]);
+    }
+
+    var formData = new FormData();
+    Object.keys(values).forEach((key) => {
+      formData.append(key, values[key]);
+    })
+    formData.append("industrySize", industry_clone.length);
+    formData.append("neighbourhoodSize", neighbourhood_clone.length);
+
+    for(var k = 0; k < industry_clone.length; k++) {
+      formData.append("industry"+k, industry_clone[k]);
+    }
+    for(var k = 0; k < neighbourhood_clone.length; k++) {
+      formData.append("neighbourhood"+k, neighbourhood_clone[k]);
+    }
+    
+    axios.post('http://localhost:3003/url/saveProfile', formData, {
+      headers: {
+        "content-Type": 'multipart/form-data'
+      }
+    })
 
     .then((response) => {
       console.log(response);
@@ -49,7 +77,7 @@ function App() {
     setValues({...values, businessContact: event.target.value})
   }
   const handleImageChange = (event) => {
-    setValues({...values,image: event.target.value})
+    setValues({...values,image: event.target.files[0]})
   }
   const handleTagsChange = (event) => {
     setValues({...values,tags: event.target.value})
@@ -61,7 +89,7 @@ function App() {
       setValid(true);
     }
     setSubmitted(true);
-    console.log(industry)
+    send();
   }
 
 
@@ -164,40 +192,40 @@ function App() {
       }
     ]);
     
-    const [checkedIndustryState, setIndustryCheckedState] = useState(
-      new Array(industry.length).fill(false)
-    );
+   // const [checkedIndustryState, setIndustryCheckedState] = useState(
+    //  new Array(industry.length).fill(false)
+   // );
 
-    const [checkedNeighbourhoodState, setNeighbourhoodCheckedState] = useState(
-      new Array(neighbourhood.length).fill(false)
-    );
+   // const [checkedNeighbourhoodState, setNeighbourhoodCheckedState] = useState(
+     // new Array(neighbourhood.length).fill(false)
+    //);
 
-    const handleIndustryOnChange = (position) => {
-      const updatedIndustryCheckedState = checkedIndustryState.map((item, index) =>
-        index === position ? !item : item
-      );
+    //const handleIndustryOnChange = (position) => {
+     // const updatedIndustryCheckedState = checkedIndustryState.map((item, index) =>
+       // index === position ? !item : item
+      //);
 
-      setIndustryCheckedState(updatedIndustryCheckedState);
-      industry[position].flag = !industry[position].flag
-    }
+      //setIndustryCheckedState(updatedIndustryCheckedState);
+     // industry[position].flag = !industry[position].flag
+    //}
 
-    const handleNeighbourhoodOnChange = (position) => {
-      const updatedNeighbourhoodCheckedState = checkedNeighbourhoodState.map((item, index) =>
-        index === position ? !item : item
-      );
+   // const handleNeighbourhoodOnChange = (position) => {
+     // const updatedNeighbourhoodCheckedState = checkedNeighbourhoodState.map((item, index) =>
+      //  index === position ? !item : item
+     // );
 
-      setNeighbourhoodCheckedState(updatedNeighbourhoodCheckedState);
-      neighbourhood[position].flag = !neighbourhood[position].flag
-    }
+      //setNeighbourhoodCheckedState(updatedNeighbourhoodCheckedState);
+      //neighbourhood[position].flag = !neighbourhood[position].flag
+    //}
 
   return (
     <div class="form-container">
-          <form class="register-form" onSubmit={handleSubmit}>
-            {submitted && valid ? <div class="success-message">Success! Thank you for registering</div> : null}
+          <form className="register-form" onSubmit={handleSubmit} encType="multipart/form-data">
+            {submitted && valid ? <div className="success-message">Success! Thank you for registering</div> : null}
             <input
               onChange={handleBusinessNameInputChange}
               value={values.businessName}
-              class="form-field"
+              className="form-field"
               type="text"
               placeholder="Business Name"
             />
@@ -205,7 +233,7 @@ function App() {
             <input
               onChange={handleOwnerNameInputChange}
               value={values.businessOwnerName}
-              class="form-field"
+              className="form-field"
               type="text"
               placeholder="Owner Name"
             />
@@ -213,7 +241,7 @@ function App() {
             <input
               onChange={handleBusinessContactInputChange}
               value={values.businessContact}
-              class="form-field"
+              className="form-field"
               type="text"
               placeholder="Private Contact"
             />
@@ -267,8 +295,15 @@ function App() {
                                 id={`custom-checkbox-${index}`}
                                 name={name}
                                 value={name}
-                                checked={checkedIndustryState[index]}
-                                onChange={() => handleIndustryOnChange(index)}
+                                //checked={checkedIndustryState[index]}
+                                //onChange={() => handleIndustryOnChange(index)}
+                                onChange={(e) => {
+                                  let val = e.target.checked;
+                                  setindustryFlag(industry.map(cbox => {
+                                    if(cbox.name === e.target.name) { cbox.flag = val }
+                                    return cbox;
+                                  }))
+                                }}
                               />
                               <label htmlFor={`custom-checkbox-${index}`}>{name}</label>
                             </div>
@@ -281,18 +316,25 @@ function App() {
                   <ul className="industry-list">
                     {neighbourhood.map(({ name },index) => {
                       return (
-                        <li key={index}>
-                          <div className="indsutry-list-item">
+                        <li key={index+industry.length}>
+                          <div className="industry-list-item">
                             <div className="left-section">
                               <input
                                 type="checkbox"
-                                id={`custom-checkbox-${index}`}
+                                id={`custom-checkbox-${index + industry.length}`}
                                 name={name}
                                 value={name}
-                                checked={checkedNeighbourhoodState[index]}
-                                onChange={() => handleNeighbourhoodOnChange(index)}
+                                //checked={checkedNeighbourhoodState[index]}
+                                //onChange={() => handleNeighbourhoodOnChange(index)}
+                                onChange={e => {
+                                  let val = e.target.checked;
+                                  setneighbourhoodFlag(neighbourhood.map(n => {
+                                    if(n.name === e.target.name) { n.flag = val }
+                                    return n;
+                                  }))
+                                }}
                               />
-                              <label htmlFor={`custom-checkbox-${index}`}>{name}</label>
+                              <label htmlFor={`custom-checkbox-${index+industry.length}`}>{name}</label>
                             </div>
                           </div>
                         </li>

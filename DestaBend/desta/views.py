@@ -13,22 +13,41 @@ def home(request):
     jres = json.loads(json_util.dumps(res))
     return JsonResponse(jres, safe=False)
 
+
+def getDataChecked(name, size, data):
+    res = []
+    for i in range(size):
+        checkBox = json.loads(data[name+str(i)])
+        if checkBox["flag"] == True:
+            res.append(checkBox["name"])
+    return res
+
+
 @csrf_exempt
-def data(request):
-    # dd = json.loads(request.body.decode('utf-8'))
-    dd = request.POST
+def saveProfile(request):
+    data = request.POST
     bg_image = request.FILES.get("image", None)
 
+    industrySize = int(data.get("industrySize", 0))
+    neighbourhoodSize = int(data.get("neighbourhoodSize", 0))
+
+    business_industries = getDataChecked("industry", industrySize, data)
+    neighbourhoods = getDataChecked("neighbourhood", neighbourhoodSize, data)
+    tags = data["tags"].split(',')
+
+
     profile = {
-        "businessName": dd.get("businessName", None),
-        "businessOwnerName": dd.get("businessOwnerName", None),
-        "description": dd.get("businessOwnerName", None),
-        "address": dd.get("address", None),
-        "publictContact": dd.get("publictContact", None),
-        "businessContact": dd.get("businessContact", None),
-        "image": None if bg_image == None else gfs.put(bg_image) ,  #need to handle the default image case
+        "businessName": data.get("businessName", None),
+        "businessOwnerName": data.get("businessOwnerName", None),
+        "description": data.get("businessOwnerName", None),
+        "address": data.get("address", None),
+        "businessContact": data.get("businessContact", None),
+        "industries": business_industries,
+        "neighbourhoods": neighbourhoods,
+        "tags": tags,
+        "image": gfs.put(bg_image)
     }
 
-    # db.profiles.insert_one(profile)
+    db.profiles.insert_one(profile)
 
     return HttpResponse("Profile Saved and awaiting approval !")
