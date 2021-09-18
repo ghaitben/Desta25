@@ -1,9 +1,10 @@
-import App from "./components/App";
+//import App from "./components/App";
+import LandingPage from "./components/LandingPage"
 
 function mainApp() {
     return(
-        <>
-            <App />
+        <>  
+            <LandingPage />
         </>
     );
     
