@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
-import './index.css';
-import './components/SearchBar.js'
-import SearchBar from './components/SearchBar';
+import '../index.css';
+import './SearchBar.js'
+import SearchBar from './SearchBar';
 
 
 function App() {
