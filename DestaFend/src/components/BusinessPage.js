@@ -11,6 +11,18 @@ function BusinessPage({props}) {
     const [neighbourhoods, setNeighbourhoods] = useState([])
     const [industry, setIndustry] = useState([])
     
+    function handleClick(e) {
+        if(e.target.value === "Connect To This Business") {
+            e.target.value = "Business Contact: " + binfo.businessContact;
+        }
+        else {
+            e.preventDefault();
+        }
+    }
+
+
+
+
     async function fetchUser() {
         await axios.get("http://localhost:3003/getuser", {
             params: {
@@ -38,7 +50,6 @@ function BusinessPage({props}) {
                 </div>
                 <div className="Bname white">
                     {binfo.businessName}
-                    
                 </div>
                 <div className="overview white">
                     {binfo.description} jsqlmkqjdsmlkjsmldfkjlkdjsfmlqksjdmlfkqjsdlfkjsqdklf{binfo.description} jsqlmkqjdsmlkjsmldfkjlkdjsfmlqksjdmlfkqjsdlfkjsqdklf{binfo.description} jsqlmkqjdsmlkjsmldfkjlkdjsfmlqksjdmlfkqjsdlfkjsqdklf{binfo.description} jsqlmkqjdsmlkjsmldfkjlkdjsfmlqksjdmlfkqjsdlfkjsqdklf{binfo.description} jsqlmkqjdsmlkjsmldfkjlkdjsfmlqksjdmlfkqjsdlfkjsqdklf{binfo.description} jsqlmkqjdsmlkjsmldfkjlkdjsfmlqksjdmlfkqjsdlfkjsqdklf{binfo.description} jsqlmkqjdsmlkjsmldfkjlkdjsfmlqksjdmlfkqjsdlfkjsqdklf{binfo.description} jsqlmkqjdsmlkjsmldfkjlkdjsfmlqksjdmlfkqjsdlfkjsqdklf{binfo.description} jsqlmkqjdsmlkjsmldfkjlkdjsfmlqksjdmlfkqjsdlfkjsqdklf{binfo.description} jsqlmkqjdsmlkjsmldfkjlkdjsfmlqksjdmlfkqjsdlfkjsqdklf{binfo.description} jsqlmkqjdsmlkjsmldfkjlkdjsfmlqksjdmlfkqjsdlfkjsqdklf{binfo.description} jsqlmkqjdsmlkjsmldfkjlkdjsfmlqksjdmlfkqjsdlfkjsqdklf{binfo.description} jsqlmkqjdsmlkjsmldfkjlkdjsfmlqksjdmlfkqjsdlfkjsqdklf{binfo.description} jsqlmkqjdsmlkjsmldfkjlkdjsfmlqksjdmlfkqjsdlfkjsqdklf{binfo.description} jsqlmkqjdsmlkjsmldfkjlkdjsfmlqksjdmlfkqjsdlfkjsqdklf{binfo.description} jsqlmkqjdsmlkjsmldfkjlkdjsfmlqksjdmlfkqjsdlfkjsqdklf
@@ -55,6 +66,8 @@ function BusinessPage({props}) {
                 <div className="tags white">
                     {industry.map(ind => <div className="Box violet">#{ind}</div> )}
                 </div>
+                <input type="button" className="connectButton white" value="Connect To This Business" 
+                onClick={(e) => handleClick(e)} />
                 
             </div>
         </>

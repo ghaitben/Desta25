@@ -289,7 +289,7 @@ function App() {
               placeholder="Enter some tags separated by commas"
             />
             <h3>Select Industry</h3>
-                  <ul className="industry-list">
+                  <ul className="industry-list" style={{marginTop:"0px"}}>
                     {industry.map(({ name },index) => {
                       return (
                         <li key={index}>
@@ -318,7 +318,7 @@ function App() {
                     })}
                   </ul>
                   <h3>Select neighbourhood</h3>
-                  <ul className="industry-list">
+                  <ul className="industry-list" style={{marginTop:"0px"}}>
                     {neighbourhood.map(({ name },index) => {
                       return (
                         <li key={index+industry.length}>
