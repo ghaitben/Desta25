@@ -8,7 +8,7 @@ function BusinessPage({props}) {
     const [binfo, setBState] = useState([])
     
     function fetchUser() {
-        axios.get("http://localhost:3003/getuser", {
+        axios.get("http://143.198.37.59:3003/getuser", {
             params: {
                 _id:_id
             }
