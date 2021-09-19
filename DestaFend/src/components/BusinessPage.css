@@ -18,15 +18,50 @@
     margin-left: 40%;
 }
 .white {
+    margin-left: 40%;
     color:white;
 }
 
 .Bname {
-    margin-left: 40%;
-    font-size:20px;
+    
+    font-size:25px;
     font-weight: bold;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.overview {
+    font-size:19px;
+    line-height: 2em;
+    font-family: Arial, Helvetica, sans-serif;
+    word-wrap: break-word;
+    width:60vw;
+}
+
+.address {
+    font-size:17px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.tags {
+    display: flex;
+    justify-content: left;
+    gap: 20px;
+    font-weight: bold;
 }
 
 
-
+.Box {
+    padding: 20px;
+    border-radius: 20px;
+    color: black;
+}
+.green {
+    background-color: greenyellow;
+}
+.blue {
+    background-color: blue;
+}
+.violet {
+    background-color: paleturquoise;
+}

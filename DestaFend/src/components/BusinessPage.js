@@ -1,43 +1,59 @@
 import axios from 'axios';
 import './BusinessPage.css'
+import NavBar from './NavBar';
 import React, {useState, useEffect} from 'react'
 
 function BusinessPage({props}) {
     
     let _id = props.match.params.id; 
     const [binfo, setBState] = useState([])
+    const [tags, setTags] = useState([])
+    const [neighbourhoods, setNeighbourhoods] = useState([])
+    const [industry, setIndustry] = useState([])
     
-    function fetchUser() {
-        axios.get("http://143.198.37.59:3003/getuser", {
+    async function fetchUser() {
+        await axios.get("http://localhost:3003/getuser", {
             params: {
                 _id:_id
             }
         })
-        .then( res => setBState(res.data) )
+        .then( res => {
+            setBState(res.data);
+            setTags(res.data.tags);
+            setNeighbourhoods(res.data.neighbourhoods);
+            setIndustry(res.data.industries);
+        })
         .catch(err => console.log(err))
     }
     useEffect(() => {
         fetchUser();
     }, [])
-    console.log(binfo)
+    
     return(
         <>
+            <NavBar />
             <div className="container3">
                 <div className="bgpicture">
                     <img src={"data:image;base64,"+ binfo.image} alt="bpic" className="picture" />
                 </div>
                 <div className="Bname white">
-                    Business Title:  {binfo.businessName}
+                    {binfo.businessName}
                     
                 </div>
                 <div className="overview white">
-                    Overview: {binfo.description}
+                    {binfo.description} jsqlmkqjdsmlkjsmldfkjlkdjsfmlqksjdmlfkqjsdlfkjsqdklf{binfo.description} jsqlmkqjdsmlkjsmldfkjlkdjsfmlqksjdmlfkqjsdlfkjsqdklf{binfo.description} jsqlmkqjdsmlkjsmldfkjlkdjsfmlqksjdmlfkqjsdlfkjsqdklf{binfo.description} jsqlmkqjdsmlkjsmldfkjlkdjsfmlqksjdmlfkqjsdlfkjsqdklf{binfo.description} jsqlmkqjdsmlkjsmldfkjlkdjsfmlqksjdmlfkqjsdlfkjsqdklf{binfo.description} jsqlmkqjdsmlkjsmldfkjlkdjsfmlqksjdmlfkqjsdlfkjsqdklf{binfo.description} jsqlmkqjdsmlkjsmldfkjlkdjsfmlqksjdmlfkqjsdlfkjsqdklf{binfo.description} jsqlmkqjdsmlkjsmldfkjlkdjsfmlqksjdmlfkqjsdlfkjsqdklf{binfo.description} jsqlmkqjdsmlkjsmldfkjlkdjsfmlqksjdmlfkqjsdlfkjsqdklf{binfo.description} jsqlmkqjdsmlkjsmldfkjlkdjsfmlqksjdmlfkqjsdlfkjsqdklf{binfo.description} jsqlmkqjdsmlkjsmldfkjlkdjsfmlqksjdmlfkqjsdlfkjsqdklf{binfo.description} jsqlmkqjdsmlkjsmldfkjlkdjsfmlqksjdmlfkqjsdlfkjsqdklf{binfo.description} jsqlmkqjdsmlkjsmldfkjlkdjsfmlqksjdmlfkqjsdlfkjsqdklf{binfo.description} jsqlmkqjdsmlkjsmldfkjlkdjsfmlqksjdmlfkqjsdlfkjsqdklf{binfo.description} jsqlmkqjdsmlkjsmldfkjlkdjsfmlqksjdmlfkqjsdlfkjsqdklf{binfo.description} jsqlmkqjdsmlkjsmldfkjlkdjsfmlqksjdmlfkqjsdlfkjsqdklf
                 </div>
                 <div className="address white">
                     {binfo.address}
                 </div>
-                <div className="pcontact white">
-
+                <div className="tags white">
+                    {neighbourhoods.map(neigh => <div className="Box blue">{neigh}</div>  )}
+                </div>
+                <div className="tags white">
+                    {tags.map(tag => <div className="Box green">#{tag}</div>  )}
+                </div>
+                <div className="tags white">
+                    {industry.map(ind => <div className="Box violet">#{ind}</div> )}
                 </div>
                 
             </div>
