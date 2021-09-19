@@ -24,7 +24,7 @@ function BusinessPage({props}) {
 
 
     async function fetchUser() {
-        await axios.get("http://localhost:3003/getuser", {
+        await axios.get("http://143.198.37.59:3003/getuser", {
             params: {
                 _id:_id
             }

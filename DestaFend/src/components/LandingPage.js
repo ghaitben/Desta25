@@ -84,7 +84,7 @@ function LandingPage() {
     
   }
     function getData() {
-        axios.get("http://localhost:3003/getdata") //need to add the params later
+        axios.get("http://143.198.37.59:3003/getdata") //need to add the params later
         .then( res =>{ setBinfoState(res.data); setCloneBinfo(res.data); })
         .catch( err => console.log(err))
     }
