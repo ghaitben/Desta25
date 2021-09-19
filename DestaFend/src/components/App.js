@@ -42,7 +42,7 @@ function App() {
       formData.append("neighbourhood"+k, neighbourhood_clone[k]);
     }
     
-    axios.post('http://localhost:3003/url/saveProfile', formData, {
+    axios.post('http://159.203.5.16:3003/url/saveProfile', formData, {
       headers: {
         "content-Type": 'multipart/form-data'
       }
