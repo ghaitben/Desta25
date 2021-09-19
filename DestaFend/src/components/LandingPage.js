@@ -10,7 +10,7 @@ function LandingPage() {
     const [binfo, setBinfoState] = useState([])
     
     function getData() {
-        axios.get("http://143.198.37.59:3003/getdata") //need to add the params later
+        axios.get("http://localhost:3003/getdata") //need to add the params later
         .then( res =>{ setBinfoState(res.data);})
         .catch( err => console.log(err))
     }
@@ -22,8 +22,8 @@ function LandingPage() {
         <>
         <NavBar />
         <div className="container2">
-            {binfo.map(bis => <Tile key={bis.image} name={bis.businessName} 
-            description={bis.description} image={bis.image} visible="green" />  )}            
+            {binfo.map(bis => <a href={"/getuser/"+bis._id}> <Tile key={bis._id} name={bis.businessName} 
+            description={bis.description} image={bis.image} visible="green" /> </a> )}            
         </div>
         
         </>

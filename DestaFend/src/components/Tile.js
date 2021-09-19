@@ -3,6 +3,7 @@ import './Tile.css'
 function Tile({name, description, image, visible}) {
 
     function handleClick(e) {
+        e.preventDefault();
         let color = e.target.style.backgroundColor;
         if(color === "lightgreen") {
             e.target.style.backgroundColor = "red";

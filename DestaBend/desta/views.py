@@ -22,6 +22,7 @@ def Id_toImage(datapoint):
     img = gfs.get(imgId)
     base64_img = codecs.encode(img.read(), "base64")
     datapoint["image"] = base64_img.decode('utf-8')
+    datapoint["_id"] = datapoint["_id"]["$oid"]
     return datapoint
 
 
@@ -40,8 +41,13 @@ def getdata(request):
 
     return JsonResponse(out, safe=False)
 
-
-
+def getuser(request):
+    _id = request.GET.get("_id", None)
+    if _id:
+        data = db.profiles.find({"_id": ObjectId(_id)})
+        data = json.loads(json_util.dumps(data))
+        data = Id_toImage(data[0])
+    return JsonResponse(data, safe=False)
 
 
 @csrf_exempt

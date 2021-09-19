@@ -43,7 +43,7 @@ function App() {
       formData.append("neighbourhood"+k, neighbourhood_clone[k]);
     }
     
-    axios.post('http://143.198.37.59:3003/url/saveProfile', formData, {
+    axios.post('http://localhost:3003/url/saveProfile', formData, {
       headers: {
         "content-Type": 'multipart/form-data'
       }
@@ -87,11 +87,13 @@ function App() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if(values.businessOwnerName && values.businessName && values.businessContact){
+      send();
       setValid(true);
+      window.location.href = '/';
+      
     }
     setSubmitted(true);
-    send();
-    if(valid) {window.location.href = '/';}
+    
   }
 
 
