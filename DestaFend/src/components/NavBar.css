@@ -1,6 +1,9 @@
 * {
     text-decoration: none;
 }
+ul {
+    margin-top:70px;
+}
 
 nav {
     color:white;
