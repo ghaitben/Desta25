@@ -22,7 +22,7 @@ function Tile({name, description, image, visible}) {
                 </div>
                 <div className="businessName">
                     <span class="name">{name} </span>
-                    <input type="button" value="V" style={{backgroundColor:"lightgreen"}}
+                    <input type="button" value="NV" style={{backgroundColor:"red"}}
                      onClick={e => handleClick(e)}
                      className="visibilityButton" 
                     />

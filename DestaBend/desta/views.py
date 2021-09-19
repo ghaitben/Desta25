@@ -63,6 +63,7 @@ def saveProfile(request):
         "description": data.get("description", None),
         "address": data.get("address", None),
         "businessContact": data.get("businessContact", None),
+        "publicContact": data.get("publicContact", None),
         "industries": business_industries,
         "neighbourhoods": neighbourhoods,
         "tags": tags,

@@ -12,7 +12,7 @@ function App() {
     businessOwnerName: "",
     description: "",
     address: "",
-    publictContact: "",
+    publicContact: "",
     businessContact: "",
     image: './default_img.jpeg',
     tags: "",
