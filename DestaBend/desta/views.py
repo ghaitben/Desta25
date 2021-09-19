@@ -52,7 +52,8 @@ def getuser(request):
 
 @csrf_exempt
 def saveProfile(request):
-    data = request.POST
+    # data = request.POST
+    data = json.loads(request.body.decode('utf-8'))
     bg_image = request.FILES.get("image", None)
 
     industrySize = int(data.get("industrySize", 0))
