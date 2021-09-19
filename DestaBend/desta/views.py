@@ -60,7 +60,11 @@ def saveProfile(request):
 
     business_industries = getDataChecked("industry", industrySize, data)
     neighbourhoods = getDataChecked("neighbourhood", neighbourhoodSize, data)
-    tags = data.get("tags", []).split(',')
+    tags = data.get("tags", None)
+    if tags:
+        tags = tags.split(',')
+    else:
+        tags = ["No tags specified"]
 
     profile = {
         "businessName": data.get("businessName", None),
